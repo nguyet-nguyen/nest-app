@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
-plase run "npm i react-hook-form" and "npm i react-modal" before run "npm run dev" or "yarn dev"
+please run "npm i react-hook-form"  before run "npm run dev" or "yarn dev"
 
 ```bash
 npm run dev

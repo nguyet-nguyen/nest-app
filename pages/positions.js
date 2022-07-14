@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-export default function editPage() {
+export default function positions() {
   const {
     register,
     handleSubmit,
@@ -31,7 +31,7 @@ export default function editPage() {
         <table className='table'>
           <thead>
             <tr>
-              <th colSpan={2}>Thêm mới cán bộ</th>
+              <th colSpan={2}>Thêm chức vụ</th>
             </tr>
           </thead>
           <tbody>

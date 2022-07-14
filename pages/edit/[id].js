@@ -1,31 +1,47 @@
 import { useRouter } from 'next/router'
 import { useForm } from "react-hook-form";
 export default function editEmployee() {
-    
+
     const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
- 
+
     const onSubmit = async (data, e) => {
         let emplyeeList = JSON.parse(localStorage.getItem('emplyeeList'));
-        const emplyee = {
-            id: emplyeeList.length + 1,
-            name: data.name,
-            sex: data.sex,
-            address: data.address,
-            phoneNumber: data.phone,
-            email: data.email,
-        };
-        localStorage.removeItem('emplyeeList');
+
         if (!router.query || router.query.id == "null" || router.query.id == "") {
+            const index = 0;
+            console.log(emplyeeList);
+            if (emplyeeList.length > 0) {
+                index = emplyeeList[emplyeeList.length - 1].id;
+            }
+            const emplyee = {
+                id: index + 1,
+                name: data.name,
+                sex: data.sex,
+                address: data.address,
+                phoneNumber: data.phone,
+                email: data.email,
+            };
+            localStorage.removeItem('emplyeeList');
             emplyeeList.push(emplyee);
         } else {
-            emplyeeList.forEach((item,index)=>{
-                if(item.id == router.query.id){
-                    emplyeeList[index]=emplyee;
+        
+            const emplyee = {
+                id: router.query.id,
+                name: data.name,
+                sex: data.sex,
+                address: data.address,
+                phoneNumber: data.phone,
+                email: data.email,
+            };
+            localStorage.removeItem('emplyeeList');
+            emplyeeList.forEach((item, index) => {
+                if (item.id == router.query.id) {
+                    emplyeeList[index] = emplyee;
                     console.log(emplyeeList);
                 }
             })

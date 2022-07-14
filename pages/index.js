@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 export default function Home() {
+  // if ((user.name.toString().toLowerCase().indexOf(searchKey) > -1)
   const [productListFilter, setProductListFilter] = useState([]);
   useEffect(() => {
     let emplyees = [{
@@ -31,27 +32,13 @@ export default function Home() {
     setProductListFilter(JSON.parse(localStorage.getItem('emplyeeList')));
 
   }, []);
-  const arr = [1, 2, 3, 4];
+
   const onDelete = (id) => {
+    console.log(id);
     const new_arr = productListFilter.filter(item => item.id !== id);
     setProductListFilter(new_arr);
     localStorage.setItem("emplyeeList", JSON.stringify(new_arr))
   };
-  const Popup = props => {
-    return (
-      <div className="popup-box">
-        <div className="box">
-          <span className="close-icon" onClick={props.handleClose}>x</span>
-          {props.content}
-        </div>
-      </div>
-    );
-  };
-  const [isOpen, setIsOpen] = useState(false);
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  }
   return (
     <div className={styles.container}>
       <Head>
@@ -66,7 +53,7 @@ export default function Home() {
       <main >
         <Link href="/edit/null">
           <button type="button" className="button-form">
-            <a>Create</a>
+            <a>Thêm</a>
           </button>
         </Link>
         <table>
@@ -105,7 +92,8 @@ export default function Home() {
             {productListFilter && productListFilter.map((emmp, index) =>
               <tr key={index}>
                 <td>
-                  {index + 1}
+                  {/* {index + 1} */}
+                  {emmp.id}
                 </td>
                 <td>
                   {emmp.name}
@@ -131,21 +119,22 @@ export default function Home() {
                   </Link>
                 </td>
                 <td>
-                  <button type="button"
-                    onClick={togglePopup}
-                    // onClick={() => onDelete(emmp.id)}
-                    className="button-form" >Xóa</button>
-                  {isOpen && <Popup
-                    content={<>
-                      <b>Bạn có chắc chắn muốn xóa nhân viên naỳ hay không ?</b>
-                      <br/>
-                      <button type="button"
+                  {/* <button type="button"
                     onClick={() => onDelete(emmp.id)}
-                    className="button-form" >Xóa</button>
-                    </>}
-                    handleClose={togglePopup}
-                  />}
+                    className="button-form" >Xóa</button> */}
+                  <div className="popup-link button-form">
+                    <a href={`#popup2-${emmp.id}`}>Xóa</a>
+                  </div>
+                  <div id={`popup2-${emmp.id}`} className="popup-container popup-style-2">
+                    <div className="popup-content">
+                      <a href="#" className="close">&times;</a>
+                      <h3>Popup 2 - {emmp.id} </h3>
+                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                      <a href="#" onClick={() => onDelete(emmp.id)} className="button-form">Xóa</a>
+                    </div>
+                  </div>
                 </td>
+
               </tr>
             )}
           </tbody>
