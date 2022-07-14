@@ -6,11 +6,28 @@ export default function editEmployee() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm();
+    let emplyeeList = [];
+    if (typeof window !== 'undefined') {
+        emplyeeList = JSON.parse(localStorage.getItem('emplyeeList'));
+    };
+    console.log(emplyeeList);
+    let sexValue;
+    if(router.query && router.query.id !='null'){
+        emplyeeList.map((item)=> {
+            if(item.id == parseInt(router.query.id)){
+                setValue("name", item.name);
+                setValue("phone", item.phoneNumber);
+                setValue("address", item.address);
+                setValue("email", item.email);
+                sexValue = item.sex;
+            }
+        })
 
+    }
     const onSubmit = async (data, e) => {
-        let emplyeeList = JSON.parse(localStorage.getItem('emplyeeList'));
 
         if (!router.query || router.query.id == "null" || router.query.id == "") {
             const index = 0;
@@ -25,24 +42,30 @@ export default function editEmployee() {
                 address: data.address,
                 phoneNumber: data.phone,
                 email: data.email,
+                position: "nhân viên"
             };
             localStorage.removeItem('emplyeeList');
             emplyeeList.push(emplyee);
         } else {
-        
+            let positionValueEdit;
+            emplyeeList.forEach((item) => {
+                if (item.id == router.query.id) {
+                    positionValueEdit = item.position;
+                }
+            })
             const emplyee = {
-                id: router.query.id,
+                id: parseInt(router.query.id),
                 name: data.name,
                 sex: data.sex,
                 address: data.address,
                 phoneNumber: data.phone,
                 email: data.email,
+                position: positionValueEdit,
             };
             localStorage.removeItem('emplyeeList');
             emplyeeList.forEach((item, index) => {
                 if (item.id == router.query.id) {
                     emplyeeList[index] = emplyee;
-                    console.log(emplyeeList);
                 }
             })
         }
@@ -96,27 +119,55 @@ export default function editEmployee() {
                         <tr>
                             <td>Giới tính</td>
                             <td>
+                                {sexValue == "0" ?
+                                 <label htmlFor="nam">
+                                 <input
+                                     {...register("sex")}
+                                     checked
+                                     type="radio"
+                                     name="sex"
+                                     value="0"
+                                     id="Nam"
+                                 />
+                                 Nam
+                             </label>
+                                :
                                 <label htmlFor="nam">
-                                    <input
-                                        {...register("sex")}
-                                        checked
-                                        type="radio"
-                                        name="sex"
-                                        value="0"
-                                        id="nam"
-                                    />
-                                    Nam
-                                </label>
+                                 <input
+                                     {...register("sex")}
+                                     type="radio"
+                                     name="sex"
+                                     value="0"
+                                     id="Nam"
+                                 />
+                                 Nam
+                             </label>
+                                }
+                               {sexValue == "1" ? 
                                 <label htmlFor="nu">
                                     <input
+                                        checked
                                         {...register("sex")}
                                         type="radio"
                                         name="sex"
                                         value="1"
-                                        id="nu"
+                                        id="Nu"
                                     />
                                     Nữ
                                 </label>
+                                    :
+                                    <label htmlFor="nu">
+                                        <input
+
+                                            {...register("sex")}
+                                            type="radio"
+                                            name="sex"
+                                            value="1"
+                                            id="Nu"
+                                        />
+                                        Nữ
+                                </label>
+                                }
                             </td>
                         </tr>
 

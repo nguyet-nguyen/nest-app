@@ -8,21 +8,30 @@ export default function Home() {
   useEffect(() => {
     let emplyees = [{
       id: 1,
-      name: "Nguyen Hoang Duy",
+      name: "Nguyễn Văn A",
       sex: 0,
-      address: "Giai Xuan, Phong DIen, Can Tho",
-      phoneNumber: "0375575127",
-      email: "duy2205@gail.com",
-      position: "Truong Phong",
+      address: "Cần Thơ",
+      phoneNumber: "0123456789",
+      email: "nva@gmail.com",
+      position: "GIám đốc",
     },
     {
       id: 2,
-      name: "Nguyen Minh Nguyet",
+      name: "Nguyễn Thị B",
       sex: 1,
-      address: "Long Tri, Long My, Hau Giang",
-      phoneNumber: "0971972102",
-      email: "nguyenminhnguyet@gail.com",
-      position: "Truong Phong",
+      address: "Hậu Giang",
+      phoneNumber: "0123456789",
+      email: "ntb@gail.com",
+      position: "Trưởng Phòng",
+    },
+    {
+      id: 3,
+      name: "Nguyễn Văn C",
+      sex: 0,
+      address: "Cần Thơ",
+      phoneNumber: "0123456789",
+      email: "nvc@gmail.com",
+      position: "Nhân Viên",
     }
     ];
     if (!localStorage.getItem('emplyeeList') || JSON.parse(localStorage.getItem('emplyeeList')) === "" || localStorage.getItem('emplyeeList') == "") {
@@ -99,7 +108,7 @@ export default function Home() {
                   {emmp.name}
                 </td>
                 <td>
-                  {emmp.sex == 1 ? "Nu" : null}
+                  {emmp.sex == 1 ? "X" : null}
                 </td>
                 <td>
                   {emmp.address}
@@ -128,8 +137,8 @@ export default function Home() {
                   <div id={`popup2-${emmp.id}`} className="popup-container popup-style-2">
                     <div className="popup-content">
                       <a href="#" className="close">&times;</a>
-                      <h3>Popup 2 - {emmp.id} </h3>
-                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                      <h3>Xóa nhân viên </h3>
+                      <p>Bạn có chắc chắn muốn xóa không ? </p>
                       <a href="#" onClick={() => onDelete(emmp.id)} className="button-form">Xóa</a>
                     </div>
                   </div>
